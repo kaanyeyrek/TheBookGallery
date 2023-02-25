@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE14F2AF29AA0FA800330F12 /* HomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE14F2AE29AA0FA800330F12 /* HomeCollectionViewCell.swift */; };
+		CE14F2B229AA174700330F12 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = CE14F2B129AA174700330F12 /* SDWebImage */; };
+		CE2AE70529A96A0200A2068B /* HomeListBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2AE70429A96A0200A2068B /* HomeListBuilder.swift */; };
 		CE2F614B29903A8800C29409 /* HomeContracts.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2F614A29903A8800C29409 /* HomeContracts.swift */; };
 		CE39A83029A7AEB4008444A0 /* AppContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE39A82F29A7AEB4008444A0 /* AppContainer.swift */; };
 		CE39A83229A7AEBE008444A0 /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE39A83129A7AEBE008444A0 /* AppRouter.swift */; };
@@ -58,6 +61,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CE14F2AE29AA0FA800330F12 /* HomeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewCell.swift; sourceTree = "<group>"; };
+		CE2AE70429A96A0200A2068B /* HomeListBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeListBuilder.swift; sourceTree = "<group>"; };
 		CE2F614A29903A8800C29409 /* HomeContracts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeContracts.swift; sourceTree = "<group>"; };
 		CE39A82F29A7AEB4008444A0 /* AppContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContainer.swift; sourceTree = "<group>"; };
 		CE39A83129A7AEBE008444A0 /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
@@ -100,6 +105,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE14F2B229AA174700330F12 /* SDWebImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -120,6 +126,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CE14F2AD29AA0EC500330F12 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				CE14F2AE29AA0FA800330F12 /* HomeCollectionViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		CE39A83B29A7DAD4008444A0 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
@@ -184,9 +198,9 @@
 			isa = PBXGroup;
 			children = (
 				CE6A4E42298D604A00FF8853 /* AppDelegate.swift */,
+				CE6A4E44298D604A00FF8853 /* SceneDelegate.swift */,
 				CE39A82F29A7AEB4008444A0 /* AppContainer.swift */,
 				CE39A83129A7AEBE008444A0 /* AppRouter.swift */,
-				CE6A4E44298D604A00FF8853 /* SceneDelegate.swift */,
 			);
 			name = Applications;
 			sourceTree = "<group>";
@@ -231,6 +245,7 @@
 		CE6A4E77298D655500FF8853 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				CE14F2AD29AA0EC500330F12 /* Cells */,
 				CED50D77298E796C00F6B6CC /* UILabel */,
 				CED50D74298E6EA500F6B6CC /* UIButton */,
 				CED50D6F298E662A00F6B6CC /* UIImage */,
@@ -260,8 +275,8 @@
 		CE8B9498298EA4C3001F0BF2 /* BookService */ = {
 			isa = PBXGroup;
 			children = (
-				CE8B94A7298EE4D8001F0BF2 /* BooksEndPoint.swift */,
 				CEC5A7C429900911009181A7 /* BooksService.swift */,
+				CE8B94A7298EE4D8001F0BF2 /* BooksEndPoint.swift */,
 			);
 			path = BookService;
 			sourceTree = "<group>";
@@ -298,9 +313,10 @@
 			children = (
 				CE6A4E46298D604A00FF8853 /* HomeViewController.swift */,
 				CE2F614A29903A8800C29409 /* HomeContracts.swift */,
-				CE39A83729A7CB7A008444A0 /* HomePresenter.swift */,
 				CE39A83529A7CB34008444A0 /* HomeInteractor.swift */,
+				CE39A83729A7CB7A008444A0 /* HomePresenter.swift */,
 				CE39A83929A7CB8C008444A0 /* HomeRouter.swift */,
+				CE2AE70429A96A0200A2068B /* HomeListBuilder.swift */,
 			);
 			path = HomeModule;
 			sourceTree = "<group>";
@@ -353,6 +369,9 @@
 			dependencies = (
 			);
 			name = TheBookGallery;
+			packageProductDependencies = (
+				CE14F2B129AA174700330F12 /* SDWebImage */,
+			);
 			productName = TheBookGallery;
 			productReference = CE6A4E3F298D604A00FF8853 /* TheBookGallery.app */;
 			productType = "com.apple.product-type.application";
@@ -425,6 +444,9 @@
 				Base,
 			);
 			mainGroup = CE6A4E36298D604A00FF8853;
+			packageReferences = (
+				CE14F2B029AA174700330F12 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+			);
 			productRefGroup = CE6A4E40298D604A00FF8853 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -474,6 +496,7 @@
 				CE8B94A8298EE4D8001F0BF2 /* BooksEndPoint.swift in Sources */,
 				CE8B949E298EA5CF001F0BF2 /* HTTPEndpoint.swift in Sources */,
 				CE8B949C298EA55A001F0BF2 /* HTTPMethod.swift in Sources */,
+				CE14F2AF29AA0FA800330F12 /* HomeCollectionViewCell.swift in Sources */,
 				CED50D66298E4BD500F6B6CC /* WelcomeViewController.swift in Sources */,
 				CED50D68298E4DBA00F6B6CC /* CheckFirstLoginMethod.swift in Sources */,
 				CE2F614B29903A8800C29409 /* HomeContracts.swift in Sources */,
@@ -481,6 +504,7 @@
 				CE8B94A6298EC020001F0BF2 /* CoreService.swift in Sources */,
 				CED50D73298E676500F6B6CC /* Constants.swift in Sources */,
 				CE6A4E43298D604A00FF8853 /* AppDelegate.swift in Sources */,
+				CE2AE70529A96A0200A2068B /* HomeListBuilder.swift in Sources */,
 				CE39A83A29A7CB8C008444A0 /* HomeRouter.swift in Sources */,
 				CE6A4E45298D604A00FF8853 /* SceneDelegate.swift in Sources */,
 				CE39A83829A7CB7A008444A0 /* HomePresenter.swift in Sources */,
@@ -824,6 +848,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CE14F2B029AA174700330F12 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CE14F2B129AA174700330F12 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CE14F2B029AA174700330F12 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CE6A4E37298D604A00FF8853 /* Project object */;
 }

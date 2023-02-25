@@ -8,7 +8,6 @@
 import UIKit
 
 final class HomeViewController: UIViewController {
-//MARK: - UI Injection
 //MARK: - UI Elements
     private var collection: UICollectionView!
     private let indicator: UIActivityIndicatorView = UIActivityIndicatorView()
@@ -16,20 +15,26 @@ final class HomeViewController: UIViewController {
     private let sevenTeenHundredsLabel = TBGLabel(radius: 20, setBackgroundColor: UIColor(hex: Color.skin), setText: "1700's", setTextColor: .systemBrown, size: 15, setAlignment: .center)
     private let eightTeenHundredsLabel = TBGLabel(radius: 20, setBackgroundColor: UIColor(hex: Color.skin), setText: "1800's", setTextColor: .systemBrown, size: 15, setAlignment: .center)
     private let nineTeenHundredsLabel = TBGLabel(radius: 20, setBackgroundColor: UIColor(hex: Color.skin), setText: "1900's", setTextColor: .systemBrown, size: 15, setAlignment: .center)
+    
+    var presenter: HomeListPresenterProtocol!
+    private var books: [HomePresentation] = []
 //MARK: - LifeCycle
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-   
+        setSubviews()
+        setCollection()
+        setLayout()
+        setUI()
+        setNavigationTitleFeatures()
+        presenter.load()
     }
     func setUI() {
         view.backgroundColor = .systemBackground
     }
     func setNavigationTitleFeatures() {
-        title = "Gallery"
         navigationItem.largeTitleDisplayMode = .always
         navigationController?.navigationBar.prefersLargeTitles = true
     }
@@ -39,18 +44,16 @@ final class HomeViewController: UIViewController {
         }
     }
     func setLayout() {
-        collection.anchor(top: nil, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 0), size: .init(width: view.frame.width, height: view.frame.height - 220))
-        
         indicator.centerInSuperView(size: .init(width: 300, height: 300))
         indicator.startAnimating()
         
-        sixTeenHundredsLabel.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: collection.topAnchor, trailing: nil, padding: .init(top: 0, left: 20, bottom: 15, right: 0), size: .init(width: 80, height: 45))
+        sixTeenHundredsLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: collection.topAnchor, trailing: nil, padding: .init(top: 0, left: 25, bottom: 15, right: 0), size: .init(width: 80, height: 45))
         
-        sevenTeenHundredsLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: collection.topAnchor, trailing: nil, padding: .init(top: 0, left: 120, bottom: 15, right: 0), size: .init(width: 80, height: 45))
+        sevenTeenHundredsLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: collection.topAnchor, trailing: nil, padding: .init(top: 0, left: 125, bottom: 15, right: 0), size: .init(width: 80, height: 45))
         
-        eightTeenHundredsLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: collection.topAnchor, trailing: nil, padding: .init(top: 0, left: 220, bottom: 15, right: 0), size: .init(width: 80, height: 45))
+        eightTeenHundredsLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: collection.topAnchor, trailing: nil, padding: .init(top: 0, left: 225, bottom: 15, right: 0), size: .init(width: 80, height: 45))
         
-        nineTeenHundredsLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: collection.topAnchor, trailing: nil, padding: .init(top: 0, left: 320, bottom: 15, right: 0), size: .init(width: 80, height: 45))
+        nineTeenHundredsLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: collection.topAnchor, trailing: nil, padding: .init(top: 0, left: 325, bottom: 15, right: 0), size: .init(width: 80, height: 45))
     }
     func setCollection() {
         let layout = UICollectionViewFlowLayout()
@@ -58,24 +61,24 @@ final class HomeViewController: UIViewController {
         collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         guard let collection = collection else { return }
         collection.showsVerticalScrollIndicator = false
-        collection.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collection.register(HomeCollectionViewCell.self, forCellWithReuseIdentifier: ReuseIdentifier.homeCollection)
         collection.dataSource = self
         collection.delegate = self
         view.addSubview(collection)
-    }
-    func changeLoading(isBool: Bool) {
-        isBool ? indicator.startAnimating() : indicator.stopAnimating()
+        collection.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, size: .init(width: view.frame.width, height: view.frame.height-230))
     }
 }
 //MARK: - UICollectionViewDataSource Methods
 extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        10
+        books.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collection.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        cell.backgroundColor = .systemGroupedBackground
-        cell.layer.cornerRadius = 90
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReuseIdentifier.homeCollection, for: indexPath) as? HomeCollectionViewCell else { return
+            UICollectionViewCell()
+        }
+        let model = books[indexPath.row]
+        cell.setBookImage(model: model)
         return cell
     }
 }
@@ -93,6 +96,26 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return .init(top: 0, left: 20, bottom: 20, right: 20)
+    }
+}
+
+extension HomeViewController: HomeListViewProtocol {
+    func handleOutput(_ output: HomePresenterOutput) {
+        switch output {
+        case .updateTitle(let title):
+            self.title = title
+        case .setLoading(let isLoading):
+            DispatchQueue.main.async {
+                if isLoading {
+                    self.indicator.startAnimating()
+                } else {
+                    self.indicator.stopAnimating()
+                }
+            }
+        case .showBookList(let books):
+            self.books = books
+            collection.reloadData()
+        }
     }
 }
 

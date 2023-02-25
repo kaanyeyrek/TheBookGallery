@@ -24,7 +24,7 @@ class TBGImageView: UIImageView {
     private func configure() {
         clipsToBounds = true
         layer.masksToBounds = true
-        contentMode = .scaleAspectFill
+        contentMode = .scaleAspectFit
     }
     
 }

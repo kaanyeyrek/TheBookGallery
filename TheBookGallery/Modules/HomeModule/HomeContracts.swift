@@ -8,22 +8,22 @@
 import Foundation
 
 // Interactor
-protocol MovieListInteractorProtocol: AnyObject {
+protocol BookListInteractorProtocol: AnyObject {
+    var delegate: BookListInteractorDelegate? { get set }
     func load()
     func selectBook(at index: Int)
 }
-enum MovieListInteractorOutPut {
+enum BookListInteractorOutPut {
         case setLoading(Bool)
-        case showBookList([Books])
-        case showBookDetail(Books)
+        case showBookList([BooksResult])
+        case showBookDetail(BooksResult)
 }
 protocol BookListInteractorDelegate: AnyObject {
-    
+    func handleOutput(_ output: BookListInteractorOutPut)
 }
 
 // Presenter
 protocol HomeListPresenterProtocol: AnyObject {
-    var view: HomeListViewProtocol { get set }
     func load()
     func selectBook(at index: Int)
 }
@@ -32,8 +32,17 @@ enum HomePresenterOutput {
     case setLoading(Bool)
     case showBookList([HomePresentation])
 }
+
 // View
 protocol HomeListViewProtocol: AnyObject {
     func handleOutput(_ output: HomePresenterOutput)
+}
+
+// Router
+enum BookListRoute {
+    case detail(BooksResult)
+}
+protocol BookListRouterProtocol: AnyObject {
+    func navigate(to route: BookListRoute)
 }
 

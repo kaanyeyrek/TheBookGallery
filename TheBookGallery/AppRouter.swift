@@ -16,12 +16,9 @@ final class AppRouter {
     }
     
     func start() {
-        let viewController = UIViewController()
-        viewController.view.backgroundColor = .orange
-        viewController.title = "The Book Gallery"
+        let viewController = HomeListBuilder.make()
         let navigationController = UINavigationController(rootViewController: viewController)
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
     }
-    
 }

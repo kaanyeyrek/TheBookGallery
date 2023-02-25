@@ -19,11 +19,16 @@ struct BooksResult: Decodable {
 }
 struct Writer: Decodable {
     let name: String
-    let birthYear: String
-    let deathYear: String
+    let birth_year: Int
+    let death_year: Int
 }
 struct Text: Decodable {
-    let imageJPEG: String
-    let textPlain: String
+    let imageJpeg: String?
+    let textPlain: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case imageJpeg = "image/jpeg"
+        case textPlain = "text/plain"
+    }
 }
 

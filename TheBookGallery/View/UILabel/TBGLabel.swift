@@ -19,7 +19,7 @@ class TBGLabel: UILabel {
         backgroundColor = setBackgroundColor
         text = setText
         textColor = setTextColor
-        font = .systemFont(ofSize: size!, weight: .medium)
+        font = .systemFont(ofSize: size!, weight: .bold)
         textAlignment = setAlignment!
     }
     required init?(coder: NSCoder) {

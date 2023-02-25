@@ -17,3 +17,9 @@ public enum Color {
     static let brown = "#7f7169ff"
     static let skin = "#fcf8e8ff"
 }
+public enum Font {
+    
+}
+public enum ReuseIdentifier {
+    static let homeCollection = "HomeCollectionViewCell"
+}

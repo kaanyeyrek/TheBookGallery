@@ -6,3 +6,10 @@
 //
 
 import Foundation
+ 
+final class HomeListRouter: BookListRouterProtocol {
+    
+    func navigate(to route: BookListRoute) {
+        // to do 
+    }
+}

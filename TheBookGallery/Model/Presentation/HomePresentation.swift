@@ -7,12 +7,12 @@
 
 import UIKit
 
-struct HomePresentation {
+final class HomePresentation {
     let title: String
-    let imageURL: String
+    let imageURL: String?
     
-    init(model: BooksResult) {
-        self.title = model.title
-        self.imageURL = model.formats.imageJPEG
+    init(book: BooksResult) {
+        self.title = book.title
+        self.imageURL = book.formats.imageJpeg
     }
 }

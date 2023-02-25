@@ -42,6 +42,7 @@ enum BooksEndPoint: HTTPEndpoint {
             ]
         case .getTopicBooks(let page):
             return [
+            URLQueryItem(name: "topic", value: ""),
             URLQueryItem(name: "language", value: "en-US"),
             URLQueryItem(name: "page", value: String(page))
             ]
