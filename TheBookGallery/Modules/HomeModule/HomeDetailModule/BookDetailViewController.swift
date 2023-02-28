@@ -125,7 +125,6 @@ extension BookDetailViewController: BookDetailViewProtocol {
                     let vc = SFSafariViewController(url: url, configuration: configuration)
                     vc.preferredControlTintColor = .label
                     present(vc, animated: true)
-            
         }
     }
 }
