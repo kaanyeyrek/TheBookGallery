@@ -21,7 +21,7 @@ final class BookListPresenter: HomeListPresenterProtocol {
     }
   
     func load() {
-        view?.handleOutput(.updateTitle("Books"))
+        view?.handleOutput(.updateTitle("Book Gallery"))
         interactor.load()
     }
     func selectBook(at index: Int) {

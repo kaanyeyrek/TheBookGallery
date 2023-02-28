@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		CE14F2AF29AA0FA800330F12 /* HomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE14F2AE29AA0FA800330F12 /* HomeCollectionViewCell.swift */; };
 		CE14F2B229AA174700330F12 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = CE14F2B129AA174700330F12 /* SDWebImage */; };
+		CE14F2B729AA44E100330F12 /* BookDetailBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE14F2B629AA44E100330F12 /* BookDetailBuilder.swift */; };
+		CE14F2BB29AA490E00330F12 /* BookDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE14F2BA29AA490E00330F12 /* BookDetailViewController.swift */; };
+		CE14F2BD29AA493C00330F12 /* BookDetailContracts.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE14F2BC29AA493C00330F12 /* BookDetailContracts.swift */; };
+		CE14F2BF29AA494C00330F12 /* BookDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE14F2BE29AA494C00330F12 /* BookDetailPresenter.swift */; };
 		CE2AE70529A96A0200A2068B /* HomeListBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2AE70429A96A0200A2068B /* HomeListBuilder.swift */; };
 		CE2F614B29903A8800C29409 /* HomeContracts.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2F614A29903A8800C29409 /* HomeContracts.swift */; };
 		CE39A83029A7AEB4008444A0 /* AppContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE39A82F29A7AEB4008444A0 /* AppContainer.swift */; };
@@ -62,6 +66,10 @@
 
 /* Begin PBXFileReference section */
 		CE14F2AE29AA0FA800330F12 /* HomeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewCell.swift; sourceTree = "<group>"; };
+		CE14F2B629AA44E100330F12 /* BookDetailBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailBuilder.swift; sourceTree = "<group>"; };
+		CE14F2BA29AA490E00330F12 /* BookDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailViewController.swift; sourceTree = "<group>"; };
+		CE14F2BC29AA493C00330F12 /* BookDetailContracts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailContracts.swift; sourceTree = "<group>"; };
+		CE14F2BE29AA494C00330F12 /* BookDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailPresenter.swift; sourceTree = "<group>"; };
 		CE2AE70429A96A0200A2068B /* HomeListBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeListBuilder.swift; sourceTree = "<group>"; };
 		CE2F614A29903A8800C29409 /* HomeContracts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeContracts.swift; sourceTree = "<group>"; };
 		CE39A82F29A7AEB4008444A0 /* AppContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContainer.swift; sourceTree = "<group>"; };
@@ -132,6 +140,17 @@
 				CE14F2AE29AA0FA800330F12 /* HomeCollectionViewCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		CE14F2B529AA449800330F12 /* HomeDetailModule */ = {
+			isa = PBXGroup;
+			children = (
+				CE14F2BC29AA493C00330F12 /* BookDetailContracts.swift */,
+				CE14F2BA29AA490E00330F12 /* BookDetailViewController.swift */,
+				CE14F2BE29AA494C00330F12 /* BookDetailPresenter.swift */,
+				CE14F2B629AA44E100330F12 /* BookDetailBuilder.swift */,
+			);
+			path = HomeDetailModule;
 			sourceTree = "<group>";
 		};
 		CE39A83B29A7DAD4008444A0 /* Presentation */ = {
@@ -311,12 +330,13 @@
 		CED50D69298E4E7B00F6B6CC /* HomeModule */ = {
 			isa = PBXGroup;
 			children = (
-				CE6A4E46298D604A00FF8853 /* HomeViewController.swift */,
 				CE2F614A29903A8800C29409 /* HomeContracts.swift */,
-				CE39A83529A7CB34008444A0 /* HomeInteractor.swift */,
+				CE6A4E46298D604A00FF8853 /* HomeViewController.swift */,
 				CE39A83729A7CB7A008444A0 /* HomePresenter.swift */,
+				CE39A83529A7CB34008444A0 /* HomeInteractor.swift */,
 				CE39A83929A7CB8C008444A0 /* HomeRouter.swift */,
 				CE2AE70429A96A0200A2068B /* HomeListBuilder.swift */,
+				CE14F2B529AA449800330F12 /* HomeDetailModule */,
 			);
 			path = HomeModule;
 			sourceTree = "<group>";
@@ -492,16 +512,20 @@
 				CE6A4E7A298D6D8600FF8853 /* Books.swift in Sources */,
 				CE8B94A2298EC006001F0BF2 /* NetworkError.swift in Sources */,
 				CED50D6C298E51E500F6B6CC /* TBGView.swift in Sources */,
+				CE14F2BD29AA493C00330F12 /* BookDetailContracts.swift in Sources */,
 				CE39A83029A7AEB4008444A0 /* AppContainer.swift in Sources */,
 				CE8B94A8298EE4D8001F0BF2 /* BooksEndPoint.swift in Sources */,
 				CE8B949E298EA5CF001F0BF2 /* HTTPEndpoint.swift in Sources */,
 				CE8B949C298EA55A001F0BF2 /* HTTPMethod.swift in Sources */,
 				CE14F2AF29AA0FA800330F12 /* HomeCollectionViewCell.swift in Sources */,
 				CED50D66298E4BD500F6B6CC /* WelcomeViewController.swift in Sources */,
+				CE14F2BF29AA494C00330F12 /* BookDetailPresenter.swift in Sources */,
+				CE14F2B729AA44E100330F12 /* BookDetailBuilder.swift in Sources */,
 				CED50D68298E4DBA00F6B6CC /* CheckFirstLoginMethod.swift in Sources */,
 				CE2F614B29903A8800C29409 /* HomeContracts.swift in Sources */,
 				CE6A4E47298D604A00FF8853 /* HomeViewController.swift in Sources */,
 				CE8B94A6298EC020001F0BF2 /* CoreService.swift in Sources */,
+				CE14F2BB29AA490E00330F12 /* BookDetailViewController.swift in Sources */,
 				CED50D73298E676500F6B6CC /* Constants.swift in Sources */,
 				CE6A4E43298D604A00FF8853 /* AppDelegate.swift in Sources */,
 				CE2AE70529A96A0200A2068B /* HomeListBuilder.swift in Sources */,

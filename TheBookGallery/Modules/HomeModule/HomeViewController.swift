@@ -11,10 +11,10 @@ final class HomeViewController: UIViewController {
 //MARK: - UI Elements
     private var collection: UICollectionView!
     private let indicator: UIActivityIndicatorView = UIActivityIndicatorView()
-    private let sixTeenHundredsLabel = TBGLabel(radius: 20, setBackgroundColor: UIColor(hex: Color.skin), setText: "1600's", setTextColor: .systemBrown, size: 15, setAlignment: .center)
-    private let sevenTeenHundredsLabel = TBGLabel(radius: 20, setBackgroundColor: UIColor(hex: Color.skin), setText: "1700's", setTextColor: .systemBrown, size: 15, setAlignment: .center)
-    private let eightTeenHundredsLabel = TBGLabel(radius: 20, setBackgroundColor: UIColor(hex: Color.skin), setText: "1800's", setTextColor: .systemBrown, size: 15, setAlignment: .center)
-    private let nineTeenHundredsLabel = TBGLabel(radius: 20, setBackgroundColor: UIColor(hex: Color.skin), setText: "1900's", setTextColor: .systemBrown, size: 15, setAlignment: .center)
+    private let sixTeenHundredsLabel = TBGLabel(radius: 20, setBackgroundColor: UIColor.white, setText: "1600's", setTextColor: .systemBrown, size: 15, setAlignment: .center)
+    private let sevenTeenHundredsLabel = TBGLabel(radius: 20, setBackgroundColor: UIColor.white, setText: "1700's", setTextColor: .systemBrown, size: 15, setAlignment: .center)
+    private let eightTeenHundredsLabel = TBGLabel(radius: 20, setBackgroundColor: UIColor.white, setText: "1800's", setTextColor: .systemBrown, size: 15, setAlignment: .center)
+    private let nineTeenHundredsLabel = TBGLabel(radius: 20, setBackgroundColor: UIColor.white, setText: "1900's", setTextColor: .systemBrown, size: 15, setAlignment: .center)
     
     var presenter: HomeListPresenterProtocol!
     private var books: [HomePresentation] = []
@@ -32,7 +32,7 @@ final class HomeViewController: UIViewController {
         presenter.load()
     }
     func setUI() {
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = UIColor(hex: Color.skin)
     }
     func setNavigationTitleFeatures() {
         navigationItem.largeTitleDisplayMode = .always
@@ -77,7 +77,7 @@ extension HomeViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReuseIdentifier.homeCollection, for: indexPath) as? HomeCollectionViewCell else { return
             UICollectionViewCell()
         }
-        let model = books[indexPath.row]
+        let model = books[indexPath.item]
         cell.setBookImage(model: model)
         return cell
     }
@@ -86,6 +86,7 @@ extension HomeViewController: UICollectionViewDataSource {
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collection.deselectItem(at: indexPath, animated: true)
+        presenter.selectBook(at: indexPath.item)
     }
 }
 //MARK: - UICollectionViewDelegateFlowLayout Mrthods
@@ -113,8 +114,10 @@ extension HomeViewController: HomeListViewProtocol {
                 }
             }
         case .showBookList(let books):
-            self.books = books
-            collection.reloadData()
+            DispatchQueue.main.async {
+                self.books = books
+                self.collection.reloadData()
+            }
         }
     }
 }

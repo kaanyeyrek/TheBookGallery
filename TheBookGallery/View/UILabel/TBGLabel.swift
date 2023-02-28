@@ -28,6 +28,8 @@ class TBGLabel: UILabel {
     private func configure() {
         layer.masksToBounds = true
         clipsToBounds = true
+        lineBreakMode = .byWordWrapping
+        numberOfLines = 0
     }
 
 }

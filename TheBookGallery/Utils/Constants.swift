@@ -16,10 +16,14 @@ public enum Color {
     static let darkGray2 = "#3e3e3eff"
     static let brown = "#7f7169ff"
     static let skin = "#fcf8e8ff"
+    static let pink = "#FA8072ff"
 }
 public enum Font {
     
 }
 public enum ReuseIdentifier {
     static let homeCollection = "HomeCollectionViewCell"
+}
+public enum SystemImage {
+    static let placeHolder = "photo"
 }
