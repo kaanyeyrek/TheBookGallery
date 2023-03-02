@@ -9,7 +9,7 @@ import UIKit
 import SDWebImage
 import SafariServices
 
-class BookDetailViewController: UIViewController {
+final class BookDetailViewController: UIViewController {
     
     var presenter: BookDetailPresenterProtocol!
     

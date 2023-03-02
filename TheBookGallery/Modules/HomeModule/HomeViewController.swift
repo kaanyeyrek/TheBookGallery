@@ -11,10 +11,10 @@ final class HomeViewController: UIViewController {
 //MARK: - UI Elements
     private var collection: UICollectionView!
     private let indicator: UIActivityIndicatorView = UIActivityIndicatorView()
-    private let sixTeenHundredsLabel = TBGLabel(radius: 20, setBackgroundColor: UIColor.white, setText: "1600's", setTextColor: .systemBrown, size: 15, setAlignment: .center)
-    private let sevenTeenHundredsLabel = TBGLabel(radius: 20, setBackgroundColor: UIColor.white, setText: "1700's", setTextColor: .systemBrown, size: 15, setAlignment: .center)
-    private let eightTeenHundredsLabel = TBGLabel(radius: 20, setBackgroundColor: UIColor.white, setText: "1800's", setTextColor: .systemBrown, size: 15, setAlignment: .center)
-    private let nineTeenHundredsLabel = TBGLabel(radius: 20, setBackgroundColor: UIColor.white, setText: "1900's", setTextColor: .systemBrown, size: 15, setAlignment: .center)
+    private let sixTeenHundredsButton = TBGButton(radius: 20, setBackgroundColor: .white, title: "1600's", titleColor: .systemBrown, size: 15)
+    private let sevenTeenHundreButton = TBGButton(radius: 20, setBackgroundColor: .white, title: "1700's", titleColor: .systemBrown, size: 15)
+    private let eightTeenHundreButton = TBGButton(radius: 20, setBackgroundColor: .white, title: "1800's", titleColor: .systemBrown, size: 15)
+    private let nineTeenHundredButton = TBGButton(radius: 20, setBackgroundColor: .white, title: "1900's", titleColor: .systemBrown, size: 15)
     
     var presenter: HomeListPresenterProtocol!
     private var books: [HomePresentation] = []
@@ -24,38 +24,46 @@ final class HomeViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        presenter.load()
         setSubviews()
         setCollection()
         setLayout()
         setUI()
         setNavigationTitleFeatures()
-        presenter.load()
+        setTargets()
     }
-    func setUI() {
+    private func setUI() {
         view.backgroundColor = UIColor(hex: Color.skin)
     }
-    func setNavigationTitleFeatures() {
+    private func setNavigationTitleFeatures() {
         navigationItem.largeTitleDisplayMode = .always
         navigationController?.navigationBar.prefersLargeTitles = true
     }
-    func setSubviews() {
-        [indicator, sixTeenHundredsLabel, sevenTeenHundredsLabel, eightTeenHundredsLabel, nineTeenHundredsLabel].forEach { elements in
+    private func setSubviews() {
+        [indicator, sixTeenHundredsButton, sevenTeenHundreButton, eightTeenHundreButton, nineTeenHundredButton].forEach { elements in
             view.addSubview(elements)
         }
     }
-    func setLayout() {
+    private func setTargets() {
+        sixTeenHundredsButton.addTarget(self, action: #selector(didTapped1600s), for: .touchUpInside)
+        sevenTeenHundreButton.addTarget(self, action: #selector(didTapped1700s), for: .touchUpInside)
+        eightTeenHundreButton.addTarget(self, action: #selector(didTapped1800s), for: .touchUpInside)
+        nineTeenHundredButton.addTarget(self, action: #selector(didTapped1900s), for: .touchUpInside)
+        
+    }
+    private func setLayout() {
         indicator.centerInSuperView(size: .init(width: 300, height: 300))
         indicator.startAnimating()
         
-        sixTeenHundredsLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: collection.topAnchor, trailing: nil, padding: .init(top: 0, left: 25, bottom: 15, right: 0), size: .init(width: 80, height: 45))
+        sixTeenHundredsButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: collection.topAnchor, trailing: nil, padding: .init(top: 0, left: 25, bottom: 15, right: 0), size: .init(width: 80, height: 45))
         
-        sevenTeenHundredsLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: collection.topAnchor, trailing: nil, padding: .init(top: 0, left: 125, bottom: 15, right: 0), size: .init(width: 80, height: 45))
+        sevenTeenHundreButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: collection.topAnchor, trailing: nil, padding: .init(top: 0, left: 125, bottom: 15, right: 0), size: .init(width: 80, height: 45))
         
-        eightTeenHundredsLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: collection.topAnchor, trailing: nil, padding: .init(top: 0, left: 225, bottom: 15, right: 0), size: .init(width: 80, height: 45))
+        eightTeenHundreButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: collection.topAnchor, trailing: nil, padding: .init(top: 0, left: 225, bottom: 15, right: 0), size: .init(width: 80, height: 45))
         
-        nineTeenHundredsLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: collection.topAnchor, trailing: nil, padding: .init(top: 0, left: 325, bottom: 15, right: 0), size: .init(width: 80, height: 45))
+        nineTeenHundredButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: collection.topAnchor, trailing: nil, padding: .init(top: 0, left: 325, bottom: 15, right: 0), size: .init(width: 80, height: 45))
     }
-    func setCollection() {
+    private func setCollection() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -66,6 +74,23 @@ final class HomeViewController: UIViewController {
         collection.delegate = self
         view.addSubview(collection)
         collection.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, size: .init(width: view.frame.width, height: view.frame.height-230))
+    }
+//MARK: - @objc actions
+    @objc private func didTapped1600s() {
+        presenter.tapped1600s()
+        collection.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+    }
+    @objc private func didTapped1700s() {
+        presenter.tapped1700s()
+        collection.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+    }
+    @objc private func didTapped1800s() {
+        presenter.tapped1800s()
+        collection.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+    }
+    @objc private func didTapped1900s() {
+        presenter.tapped1900s()
+        collection.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
     }
 }
 //MARK: - UICollectionViewDataSource Methods
@@ -89,7 +114,7 @@ extension HomeViewController: UICollectionViewDelegate {
         presenter.selectBook(at: indexPath.item)
     }
 }
-//MARK: - UICollectionViewDelegateFlowLayout Mrthods
+//MARK: - UICollectionViewDelegateFlowLayout Methods
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width: CGFloat = (view.frame.width - 10) / 2
@@ -99,7 +124,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
         return .init(top: 0, left: 20, bottom: 20, right: 20)
     }
 }
-
+//MARK: - HomeListView Interface
 extension HomeViewController: HomeListViewProtocol {
     func handleOutput(_ output: HomePresenterOutput) {
         switch output {
@@ -114,6 +139,26 @@ extension HomeViewController: HomeListViewProtocol {
                 }
             }
         case .showBookList(let books):
+            DispatchQueue.main.async {
+                self.books = books
+                self.collection.reloadData()
+            }
+        case .show1600s(let books):
+            DispatchQueue.main.async {
+                self.books = books
+                self.collection.reloadData()
+            }
+        case .show1700s(let books):
+            DispatchQueue.main.async {
+                self.books = books
+                self.collection.reloadData()
+            }
+        case .show1800s(let books):
+            DispatchQueue.main.async {
+                self.books = books
+                self.collection.reloadData()
+            }
+        case .show1900s(let books):
             DispatchQueue.main.async {
                 self.books = books
                 self.collection.reloadData()

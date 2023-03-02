@@ -20,7 +20,7 @@ final class HomePresentation {
         self.imageURL = book.formats.imageJpeg
         self.subjects = book.subjects
         self.authorName = book.authors.map {$0.name}
-        self.authorBirthYear = book.authors.map {$0.birth_year}
+        self.authorBirthYear = book.authors.map {$0.birth_year ?? 0}
         self.authorDeathYear = book.authors.map {$0.death_year}
     }
 }
