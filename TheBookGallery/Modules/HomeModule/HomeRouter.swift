@@ -20,6 +20,9 @@ final class HomeListRouter: BookListRouterProtocol {
         case .detail(let book):
             let detailView = BookDetailBuilder.make(with: book)
             view.show(detailView, sender: nil)
+        case .favorites:
+            let favoritesView = FavoritesBuilder.make()
+            view.show(favoritesView, sender: nil)
         }
     }
 }

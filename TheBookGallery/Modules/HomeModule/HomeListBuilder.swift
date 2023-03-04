@@ -5,7 +5,7 @@
 //  Created by Kaan Yeyrek on 2/25/23.
 //
 
-import UIKit
+import Foundation
 
 final class HomeListBuilder {
     

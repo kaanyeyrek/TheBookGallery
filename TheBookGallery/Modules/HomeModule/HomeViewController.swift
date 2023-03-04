@@ -15,13 +15,11 @@ final class HomeViewController: UIViewController {
     private let sevenTeenHundreButton = TBGButton(radius: 20, setBackgroundColor: .white, title: "1700's", titleColor: .systemBrown, size: 15)
     private let eightTeenHundreButton = TBGButton(radius: 20, setBackgroundColor: .white, title: "1800's", titleColor: .systemBrown, size: 15)
     private let nineTeenHundredButton = TBGButton(radius: 20, setBackgroundColor: .white, title: "1900's", titleColor: .systemBrown, size: 15)
+    private let favoritesButton = TBGButton(radius: 10, setBackgroundColor: UIColor(hex: Color.skin), title: nil, titleColor: nil, size: 15)
     
     var presenter: HomeListPresenterProtocol!
     private var books: [HomePresentation] = []
 //MARK: - LifeCycle
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter.load()
@@ -31,6 +29,7 @@ final class HomeViewController: UIViewController {
         setUI()
         setNavigationTitleFeatures()
         setTargets()
+        setNavBarFeatures()
     }
     private func setUI() {
         view.backgroundColor = UIColor(hex: Color.skin)
@@ -49,7 +48,13 @@ final class HomeViewController: UIViewController {
         sevenTeenHundreButton.addTarget(self, action: #selector(didTapped1700s), for: .touchUpInside)
         eightTeenHundreButton.addTarget(self, action: #selector(didTapped1800s), for: .touchUpInside)
         nineTeenHundredButton.addTarget(self, action: #selector(didTapped1900s), for: .touchUpInside)
-        
+        favoritesButton.addTarget(self, action: #selector(didTappedFavorites), for: .touchUpInside)
+    }
+    private func setNavBarFeatures() {
+        favoritesButton.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        favoritesButton.setBackgroundImage(UIImage(systemName: SystemImage.favoritesIcon), for: .normal)
+        favoritesButton.tintColor = UIColor(hex: Color.pink)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: favoritesButton)
     }
     private func setLayout() {
         indicator.centerInSuperView(size: .init(width: 300, height: 300))
@@ -92,6 +97,9 @@ final class HomeViewController: UIViewController {
         presenter.tapped1900s()
         collection.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
     }
+    @objc private func didTappedFavorites() {
+        presenter.tappedFavoritesButton()
+    }
 }
 //MARK: - UICollectionViewDataSource Methods
 extension HomeViewController: UICollectionViewDataSource {
@@ -121,7 +129,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
         return .init(width: width - 30, height: 300)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return .init(top: 0, left: 20, bottom: 20, right: 20)
+        return .init(top: 20, left: 20, bottom: 20, right: 20)
     }
 }
 //MARK: - HomeListView Interface

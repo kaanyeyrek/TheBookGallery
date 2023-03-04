@@ -39,6 +39,9 @@ final class BookListPresenter: HomeListPresenterProtocol {
     func tapped1900s() {
         interactor.tapped1900s()
     }
+    func tappedFavoritesButton() {
+        interactor.showFavoritesVC()
+    }
 }
 //MARK: - BookListInteractor Interface
 extension BookListPresenter: BookListInteractorDelegate {
@@ -64,6 +67,8 @@ extension BookListPresenter: BookListInteractorDelegate {
         case .show1900s(let book):
             let bookPresentation = book.map {HomePresentation(book: $0)}
             view?.handleOutput(.show1900s(bookPresentation))
+        case .showFavoritesVC:
+            router.navigate(to: .favorites)
         }
     }
 }

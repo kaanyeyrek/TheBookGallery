@@ -21,6 +21,6 @@ final class HomePresentation {
         self.subjects = book.subjects
         self.authorName = book.authors.map {$0.name}
         self.authorBirthYear = book.authors.map {$0.birth_year ?? 0}
-        self.authorDeathYear = book.authors.map {$0.death_year}
+        self.authorDeathYear = book.authors.map {$0.death_year ?? 0}
     }
 }

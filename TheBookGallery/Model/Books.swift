@@ -20,7 +20,7 @@ struct BooksResult: Decodable {
 struct Writer: Decodable {
     let name: String
     let birth_year: Int?
-    let death_year: Int
+    let death_year: Int?
 }
 struct Text: Decodable {
     let imageJpeg: String?

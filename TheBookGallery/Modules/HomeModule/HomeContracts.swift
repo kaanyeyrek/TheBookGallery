@@ -16,6 +16,7 @@ protocol BookListInteractorProtocol: AnyObject {
     func tapped1700s()
     func tapped1800s()
     func tapped1900s()
+    func showFavoritesVC()
 }
 enum BookListInteractorOutPut {
         case setLoading(Bool)
@@ -25,6 +26,7 @@ enum BookListInteractorOutPut {
         case show1700s([BooksResult])
         case show1800s([BooksResult])
         case show1900s([BooksResult])
+        case showFavoritesVC
             
 }
 protocol BookListInteractorDelegate: AnyObject {
@@ -39,6 +41,7 @@ protocol HomeListPresenterProtocol: AnyObject {
     func tapped1700s()
     func tapped1800s()
     func tapped1900s()
+    func tappedFavoritesButton()
 }
 enum HomePresenterOutput {
     case updateTitle(String)
@@ -58,6 +61,7 @@ protocol HomeListViewProtocol: AnyObject {
 // Router
 enum BookListRoute {
     case detail(BooksResult)
+    case favorites
 }
 protocol BookListRouterProtocol: AnyObject {
     func navigate(to route: BookListRoute)

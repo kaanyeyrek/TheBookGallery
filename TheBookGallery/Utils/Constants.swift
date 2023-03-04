@@ -26,4 +26,5 @@ public enum ReuseIdentifier {
 }
 public enum SystemImage {
     static let placeHolder = "photo"
+    static let favoritesIcon = "book.circle"
 }

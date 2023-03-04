@@ -103,4 +103,7 @@ final class HomeListInteractor: BookListInteractorProtocol {
             }
         }
     }
+    func showFavoritesVC() {
+        delegate?.handleOutput(.showFavoritesVC)
+    }
 }
