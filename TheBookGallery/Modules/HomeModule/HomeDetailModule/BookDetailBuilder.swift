@@ -11,7 +11,9 @@ final class BookDetailBuilder {
     
     static func make(with book: BooksResult) -> BookDetailViewController {
         let vc = BookDetailViewController()
-        let presenter = BookDetailPresenter(view: vc, book: book)
+        let interactor = BookDetailInteractor(realmManager: app.realmService)
+        let presenter = BookDetailPresenter(view: vc, book: book, interactor: interactor)
+        interactor.delegate = presenter
         vc.presenter = presenter
         return vc
     }

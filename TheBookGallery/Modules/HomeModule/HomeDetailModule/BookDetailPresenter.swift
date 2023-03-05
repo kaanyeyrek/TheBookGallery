@@ -10,18 +10,36 @@ import Foundation
 final class BookDetailPresenter: BookDetailPresenterProtocol {
     
     weak var view: BookDetailViewProtocol?
-    private let book: BooksResult
+    private var book: BooksResult
+    private let interactor: BookDetailInteractorProtocol
     
-    init(view: BookDetailViewProtocol, book: BooksResult) {
+    init(view: BookDetailViewProtocol, book: BooksResult, interactor: BookDetailInteractorProtocol) {
         self.view = view
         self.book = book
+        self.interactor = interactor
     }
     
     func load() {
+        interactor.load()
         view?.update(HomePresentation(book: book))
+        interactor.checkIfFavorited(book: book)
     }
     func readEBookTappedButton() {
         view?.handleOutput(output: .readEBooktoSafari(with: book.formats.textPlain ?? ""))
     }
- 
+    func didTappedFavoritesButton(isSelected: Bool) {
+        if isSelected == true {
+            interactor.deleteFavorites()
+        } else {
+            interactor.saveFavorites()
+        }
+    }
+}
+extension BookDetailPresenter: BookDetailInteractorDelegate {
+    func handleOutput(_ output: BookDetailInteractorOutput) {
+        switch output {
+        case .checkFavoriteValue(let favorited):
+            view?.handleOutput(output: .checkFavoriteValue(favorited))
+        }
+    }
 }

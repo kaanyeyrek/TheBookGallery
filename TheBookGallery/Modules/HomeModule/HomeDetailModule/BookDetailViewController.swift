@@ -24,6 +24,7 @@ final class BookDetailViewController: UIViewController {
     private let subjectsHeaderLabel = TBGLabel(radius: 0, setBackgroundColor: UIColor(hex: Color.skin), setText: "Subject:", setTextColor: .black, size: 15, setAlignment: .left)
     private let subjectLabel = TBGLabel(radius: 0, setBackgroundColor: UIColor(hex: Color.skin), setText: nil, setTextColor: .black, size: 15, setAlignment: .left)
     private let readBookButton = TBGButton(radius: 10, setBackgroundColor: .link, title: "Read E-Book", titleColor: .white, size: 15)
+    private let rightBarButton = TBGButton(radius: 10, setBackgroundColor: nil, title: nil, titleColor: nil, size: 15)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +33,7 @@ final class BookDetailViewController: UIViewController {
         setSubviews()
         setLayout()
         setTargets()
+        setBarButtonItem()
     }
     private func setUI() {
         view.backgroundColor = UIColor(hex: Color.skin)
@@ -89,9 +91,21 @@ final class BookDetailViewController: UIViewController {
         authorLabel.addCharactersSpacing(spacing: 0.88, text: authorLabel.text!)
         subjectLabel.addCharactersSpacing(spacing: 0.88, text: subjectLabel.text!)
     }
+    private func setBarButtonItem() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightBarButton)
+        rightBarButton.tintColor = .red
+        rightBarButton.titleLabel?.textAlignment = .right
+        rightBarButton.setBackgroundImage(UIImage(systemName: SystemImage.heart), for: .normal)
+        rightBarButton.setBackgroundImage(UIImage(systemName: SystemImage.heartFill), for: .selected)
+        rightBarButton.addTarget(self, action: #selector(didTappedFavoritesButton), for: .touchUpInside)
+    }
 //MARK: - @objc actions
     @objc private func didTappedReadEBookButton() {
         presenter.readEBookTappedButton()
+    }
+    @objc private func didTappedFavoritesButton(_ sender: UIButton) {
+        presenter.didTappedFavoritesButton(isSelected: rightBarButton.isSelected)
+        rightBarButton.isSelected.toggle()
     }
 }
 //MARK: - BookDetailView Interface
@@ -125,6 +139,8 @@ extension BookDetailViewController: BookDetailViewProtocol {
                     let vc = SFSafariViewController(url: url, configuration: configuration)
                     vc.preferredControlTintColor = .label
                     present(vc, animated: true)
+        case .checkFavoriteValue(let favoritedBook):
+            rightBarButton.isSelected = favoritedBook
         }
     }
 }

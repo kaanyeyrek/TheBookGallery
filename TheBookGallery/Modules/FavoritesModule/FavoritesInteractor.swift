@@ -14,6 +14,4 @@ final class FavoritesInteractor: FavoritesInteractorProtocol {
     func load() {
         
     }
-    
-    
 }

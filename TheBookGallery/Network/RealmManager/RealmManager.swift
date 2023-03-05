@@ -9,25 +9,22 @@ import Foundation
 import RealmSwift
 
 protocol RealmManagerProtocol: AnyObject {
-    func addFavorite(_ favorite: FavoritesModel)
-    func removeFavorite(_ favorite: FavoritesModel)
-    func getFavorites() -> Results<FavoritesModel>
+    func addFavorite<T: Object>(_ object: T)
+    func removeFavorite<T: Object>(_ object: T)
+    func getFavorites<T: Object>(_ type: T.Type) -> Results<T>
 }
 
 final class RealmManager: RealmManagerProtocol {
     
-    static let shared = RealmManager()
     let realm = try! Realm()
     
-    private init() {}
-    
-    func addFavorite(_ favorite: FavoritesModel) {
-        try! realm.write {realm.add(favorite)}
+    func addFavorite<T: Object>(_ object: T) {
+        try! realm.write {realm.add(object)}
     }
-    func removeFavorite(_ favorite: FavoritesModel) {
-        try! realm.write {realm.delete(favorite)}
+    func removeFavorite<T: Object>(_ object: T) {
+        try! realm.write {realm.delete(object)}
     }
-    func getFavorites() -> Results<FavoritesModel> {
-        return realm.objects(FavoritesModel.self)
+    func getFavorites<T: Object>(_ type: T.Type) -> Results<T> {
+        return realm.objects(type)
     }
 }
