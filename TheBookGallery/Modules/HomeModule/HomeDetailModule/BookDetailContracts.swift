@@ -28,10 +28,9 @@ protocol BookDetailViewProtocol: AnyObject {
 // Interactor
 protocol BookDetailInteractorProtocol: AnyObject {
     var delegate: BookDetailInteractorDelegate? { get set }
-    func load()
     func checkIfFavorited(book: BooksResult)
-    func saveFavorites()
-    func deleteFavorites()
+    func saveFavorites(book: BooksResult)
+    func deleteFavorites(book: BooksResult)
 }
 enum BookDetailInteractorOutput {
     case checkFavoriteValue(Bool)

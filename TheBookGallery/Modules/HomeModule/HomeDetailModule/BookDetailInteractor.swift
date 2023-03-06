@@ -17,19 +17,19 @@ final class BookDetailInteractor: BookDetailInteractorProtocol {
         self.realmManager = realmManager
     }
     
-    func load() {
-        
-    }
     // helper status
     func checkIfFavorited(book: BooksResult) {
         let favorites = Array(realmManager.getFavorites(FavoritesModel.self))
         let isFavorited = favorites.contains(where: {$0.title == book.title})
         delegate?.handleOutput(.checkFavoriteValue(isFavorited))
     }
-    func saveFavorites() {
+    func saveFavorites(book: BooksResult) {
+        let favorited = FavoritesModel(book: book)
+        realmManager.addFavorite(favorited)
         
     }
-    func deleteFavorites() {
-        
+    func deleteFavorites(book: BooksResult) {
+        let favorited = FavoritesModel(book: book)
+        realmManager.removeFavorite(FavoritesModel.self, id: favorited.id)
     }
 }

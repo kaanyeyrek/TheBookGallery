@@ -20,7 +20,6 @@ final class BookDetailPresenter: BookDetailPresenterProtocol {
     }
     
     func load() {
-        interactor.load()
         view?.update(HomePresentation(book: book))
         interactor.checkIfFavorited(book: book)
     }
@@ -29,9 +28,9 @@ final class BookDetailPresenter: BookDetailPresenterProtocol {
     }
     func didTappedFavoritesButton(isSelected: Bool) {
         if isSelected == true {
-            interactor.deleteFavorites()
+            interactor.deleteFavorites(book: book)
         } else {
-            interactor.saveFavorites()
+            interactor.saveFavorites(book: book)
         }
     }
 }

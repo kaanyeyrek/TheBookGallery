@@ -10,7 +10,7 @@ import RealmSwift
 
 protocol RealmManagerProtocol: AnyObject {
     func addFavorite<T: Object>(_ object: T)
-    func removeFavorite<T: Object>(_ object: T)
+    func removeFavorite<T: Object>(_ type: T.Type, id: Int)
     func getFavorites<T: Object>(_ type: T.Type) -> Results<T>
 }
 
@@ -21,8 +21,9 @@ final class RealmManager: RealmManagerProtocol {
     func addFavorite<T: Object>(_ object: T) {
         try! realm.write {realm.add(object)}
     }
-    func removeFavorite<T: Object>(_ object: T) {
-        try! realm.write {realm.delete(object)}
+    func removeFavorite<T: Object>(_ type: T.Type, id: Int) {
+        guard let objectToDelete = realm.object(ofType: type, forPrimaryKey: id) else { return }
+        try! realm.write {realm.delete(objectToDelete)}
     }
     func getFavorites<T: Object>(_ type: T.Type) -> Results<T> {
         return realm.objects(type)
