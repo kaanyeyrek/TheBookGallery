@@ -14,5 +14,4 @@ final class AppContainer {
     let router = AppRouter()
     let service = BooksService(service: CoreService())
     let realmService = RealmManager()
-    
 }

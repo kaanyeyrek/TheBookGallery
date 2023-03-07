@@ -29,4 +29,5 @@ public enum SystemImage {
     static let favoritesIcon = "book.circle"
     static let heart = "heart"
     static let heartFill = "suit.heart.fill"
+    static let trash = "trash"
 }

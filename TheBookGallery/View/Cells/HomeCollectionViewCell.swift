@@ -39,4 +39,11 @@ class HomeCollectionViewCell: UICollectionViewCell {
             bookImage.sd_setImage(with: URL(string: imageURL), placeholderImage: UIImage(systemName: SystemImage.placeHolder))
         }
     }
+    func setFavoritesBookImage(model: FavoritesPresentation) {
+        if let imageURL = model.imageURL {
+            bookImage.sd_imageIndicator = SDWebImageActivityIndicator.medium
+            bookImage.sd_imageTransition = .fade
+            bookImage.sd_setImage(with: URL(string: imageURL), placeholderImage: UIImage(systemName: SystemImage.placeHolder))
+        }
+    }
 }

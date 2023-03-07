@@ -7,6 +7,8 @@
 
 import UIKit
 
+private var emptyView: TBGView?
+
 // NSLayout Ex
 struct AnchoredConstraints {
     var top, leading, bottom, trailing, width, height: NSLayoutConstraint?
@@ -165,5 +167,21 @@ extension UILabel {
         attributedString.addAttribute(NSAttributedString.Key.kern, value: spacing, range: NSMakeRange(0, text.count-1))
         self.attributedText = attributedString
     }
+}
+// Empty View
+    func showEmptyStateView(with message: String, at view: UIView) {
+        DispatchQueue.main.async {
+            emptyView?.removeFromSuperview()
+            emptyView = TBGView(message: message)
+            guard let emptyView = emptyView else { return }
+            emptyView.frame = view.safeAreaLayoutGuide.layoutFrame
+            view.addSubview(emptyView)
+        }
+    }
+// Remove empty view
+    func removeEmptyStateView() {
+        DispatchQueue.main.async {
+            emptyView?.removeFromSuperview()
+        }
 }
 

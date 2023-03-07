@@ -11,11 +11,11 @@ import Foundation
 protocol FavoritesInteractorProtocol: AnyObject {
     var delegate: FavoritesListInteractorDelegate? { get set }
     func load()
+    func didTappedThrash()
 }
 enum FavoritesInteractorOutput {
-    case setLoading(Bool)
-    case showFavoritesList
-    
+    case showFavoritesList([FavoritesModel])
+    case showUpdateFavoritesList([FavoritesModel])
 }
 protocol  FavoritesListInteractorDelegate: AnyObject {
     func handleOutput(_ output: FavoritesInteractorOutput)
@@ -23,12 +23,12 @@ protocol  FavoritesListInteractorDelegate: AnyObject {
 //MARK: - Presenter
 protocol FavoritesPresenterProtocol: AnyObject {
     func load()
-    
+    func didTappedTrash()
 }
 enum FavoritesPresenterOutput {
-    case setLoading(Bool)
-    case updateTitle
-    case showFavoritesList
+    case updateTitle(String)
+    case showFavoritesList([FavoritesPresentation])
+    case showUpdateFavoritesList([FavoritesPresentation])
 }
 //MARK: - View
 protocol FavoritesViewProtocol: AnyObject {

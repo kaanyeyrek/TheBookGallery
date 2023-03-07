@@ -19,12 +19,21 @@ final class FavoritesPresenter: FavoritesPresenterProtocol {
     
     func load() {
         interactor.load()
+        view?.handleOutput(.updateTitle("Favorite Books"))
+    }
+    func didTappedTrash() {
+        interactor.didTappedThrash()
     }
 }
 extension FavoritesPresenter: FavoritesListInteractorDelegate {
     func handleOutput(_ output: FavoritesInteractorOutput) {
-        
+        switch output {
+        case .showFavoritesList(let favorites):
+            let favoritePresentation = favorites.map {FavoritesPresentation(book: $0)}
+            view?.handleOutput(.showFavoritesList(favoritePresentation))
+        case .showUpdateFavoritesList(let favorites):
+            let favoritePresentation = favorites.map {FavoritesPresentation(book: $0)}
+            view?.handleOutput(.showUpdateFavoritesList(favoritePresentation))
+        }
     }
-    
-    
 }

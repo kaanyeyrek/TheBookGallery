@@ -8,6 +8,7 @@
 import UIKit
 
 final class HomePresentation {
+    
     let title: String
     let imageURL: String?
     let subjects: [String]

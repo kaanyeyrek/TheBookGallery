@@ -9,7 +9,7 @@ import Foundation
 
 final class BookDetailPresenter: BookDetailPresenterProtocol {
     
-    weak var view: BookDetailViewProtocol?
+    private weak var view: BookDetailViewProtocol?
     private var book: BooksResult
     private let interactor: BookDetailInteractorProtocol
     

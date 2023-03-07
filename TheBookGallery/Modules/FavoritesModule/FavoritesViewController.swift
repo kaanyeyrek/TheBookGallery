@@ -12,33 +12,35 @@ final class FavoritesViewController: UIViewController {
     var presenter: FavoritesPresenterProtocol!
     
     private var collection: UICollectionView!
-    private var indicator: UIActivityIndicatorView = UIActivityIndicatorView()
-
+    private var favoritePresentation: [FavoritesPresentation] = [] {
+        didSet {
+            collection.reloadData()
+            
+            if favoritePresentation.isEmpty {
+                showEmptyStateView(with: "You do not have a favorite item.", at: self.view)
+                navigationItem.rightBarButtonItem?.isEnabled = false
+            } else {
+                removeEmptyStateView()
+            }
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter.load()
         setUI()
         setNavigationTitleFeatures()
-        setSubviews()
-        setLayout()
         setCollection()
+        setNavigationBarItem()
     }
     private func setUI() {
         view.backgroundColor = UIColor(hex: Color.skin)
     }
     private func setNavigationTitleFeatures() {
-        navigationItem.largeTitleDisplayMode = .always
+        navigationItem.largeTitleDisplayMode = .never
         navigationController?.navigationBar.prefersLargeTitles = true
-        title = "Book Favorites"
     }
-    private func setSubviews() {
-        [indicator].forEach { elements in
-            view.addSubview(elements)
-        }
-    }
-    private func setLayout() {
-        indicator.centerInSuperView(size: .init(width: 300, height: 300))
-        indicator.startAnimating()
+    private func setNavigationBarItem() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: SystemImage.trash), style: .done, target: self, action: #selector(didTappedTrashButton))
     }
     private func setCollection() {
         let layout = UICollectionViewFlowLayout()
@@ -46,21 +48,29 @@ final class FavoritesViewController: UIViewController {
         collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         guard let collection = collection else { return }
         collection.showsVerticalScrollIndicator = false
-        collection.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collection.register(HomeCollectionViewCell.self, forCellWithReuseIdentifier: ReuseIdentifier.homeCollection)
         collection.dataSource = self
         collection.delegate = self
+        collection.backgroundColor = UIColor(hex: Color.skin)
         view.addSubview(collection)
-        collection.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, size: .init(width: view.frame.width, height: view.frame.height-170))
+        collection.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, size: .init(width: view.frame.width, height: view.frame.height))
+    }
+    //MARK: - @objc actions
+    @objc private func didTappedTrashButton() {
+        self.showAlertWithConfirmation(title: "You are about to delete!", message: "Do you want to continue?") {
+            self.presenter.didTappedTrash()
+        }
     }
 }
 extension FavoritesViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        10
+        favoritePresentation.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        cell.backgroundColor = .red
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReuseIdentifier.homeCollection, for: indexPath) as? HomeCollectionViewCell else {return UICollectionViewCell()}
+        let model = favoritePresentation[indexPath.item]
+        cell.setFavoritesBookImage(model: model)
         return cell
     }
 }
@@ -80,6 +90,19 @@ extension FavoritesViewController: UICollectionViewDelegateFlowLayout {
 }
 extension FavoritesViewController: FavoritesViewProtocol {
     func handleOutput(_ output: FavoritesPresenterOutput) {
-        
+        switch output {
+        case .updateTitle(let title):
+            self.title = title
+        case .showFavoritesList(let favoriteList):
+            DispatchQueue.main.async {
+                self.favoritePresentation = favoriteList
+                self.collection.reloadData()
+            }
+        case .showUpdateFavoritesList(let favoriteList):
+            DispatchQueue.main.async {
+                self.favoritePresentation = favoriteList
+                self.collection.reloadData()
+            }
+        }
     }
 }
