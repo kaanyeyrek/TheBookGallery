@@ -10,7 +10,7 @@ import UIKit
 class WelcomeViewController: UIViewController {
     
     private let logoImage = TBGImageView(radius: nil, setImage: UIImage(named: Constants.logoImage))
-    private let welcomePhotoImage = TBGImageView(radius: 90, setImage: UIImage(named: Constants.welcomePhoto))
+    private let welcomePhotoImage = TBGImageView(radius: 70, setImage: UIImage(named: Constants.welcomePhoto))
     private let visitGalleryButton = TBGButton(radius: 30, setBackgroundColor: UIColor(hex: Color.darkGray), title: "VISIT GALLERY", titleColor: .white, size: 18)
     private let descriptionLabel = TBGLabel(radius: nil, setBackgroundColor: .clear, setText: "Discover your favorite books!", setTextColor: UIColor(hex: Color.darkGray), size: 20, setAlignment: .center)
     
@@ -32,9 +32,10 @@ class WelcomeViewController: UIViewController {
         
         welcomePhotoImage.anchor(top: nil, leading: nil, bottom: nil, trailing: nil, size: .init(width: 200, height: 400))
         welcomePhotoImage.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        welcomePhotoImage.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 30).isActive = true
+        welcomePhotoImage.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -10).isActive = true
+        welcomePhotoImage.contentMode = .scaleAspectFill
         
-        visitGalleryButton.anchor(top: nil, leading: nil, bottom: view.bottomAnchor, trailing: nil, padding: .init(top: 0, left: 0, bottom: 50, right: 0), size: .init(width: 180, height: 60))
+        visitGalleryButton.anchor(top: nil, leading: nil, bottom: view.bottomAnchor, trailing: nil, padding: .init(top: 0, left: 0, bottom: 80, right: 0), size: .init(width: 180, height: 60))
         visitGalleryButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         descriptionLabel.anchor(top: welcomePhotoImage.bottomAnchor, leading: view.leadingAnchor, bottom: visitGalleryButton.topAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 35, right: 0), size: .init(width: 50, height: 50))

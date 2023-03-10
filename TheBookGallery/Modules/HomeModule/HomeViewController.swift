@@ -20,6 +20,14 @@ final class HomeViewController: UIViewController {
     var presenter: HomeListPresenterProtocol!
     private var books: [HomePresentation] = []
 //MARK: - LifeCycle
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if CheckFirstLoginMethod.shared.isNewUser() {
+            let vc = WelcomeViewController()
+            vc.modalPresentationStyle = .fullScreen
+            present(vc, animated: true)
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter.load()
